@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -13,10 +14,13 @@ const events = [
   { id: 3, title: "VEX Takım Seçimi", date: "30 Ekim 2025", img: "/event3.jpg" },
 ];
 
-const announcements = [
-  { id: 1, title: "Yeni Robotik Takımı Kuruldu", date: "10 Ekim 2025" },
-  { id: 2, title: "Etkinlik Tarihleri Güncellendi", date: "12 Ekim 2025" },
-  { id: 3, title: "Sponsorlarımız Açıklandı", date: "13 Ekim 2025" },
+const cards = [
+  { title: "Yazılım", desc: "Web ve mobil uygulama geliştirme", img: "/images/yazilim.jpg" },
+  { title: "Robotics", desc: "VEX ve Arduino projeleri", img: "/images/robotics.jpg" },
+  { title: "Tasarım", desc: "UI/UX ve modern tasarım", img: "/images/tasarim.jpg" },
+  { title: "Proje Yönetimi", desc: "Takım ve süreç yönetimi", img: "/images/proje.jpg" },
+  { title: "Öğrenme", desc: "Yeni teknolojilerle sürekli gelişim", img: "/images/ogrenme.jpg" },
+  { title: "İlgi Alanları", desc: "AI, IoT ve yenilikçi projeler", img: "/images/ilgi.jpg" },
 ];
 
 export default function Home() {
@@ -25,6 +29,7 @@ export default function Home() {
       <Header />
 
       <main className="flex-1 p-6">
+
         {/* Slider */}
         <section className="mb-12">
           <div className="max-w-6xl mx-auto flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide">
@@ -46,7 +51,6 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {events.map((event) => (
               <div key={event.id} className="bg-gray-100 rounded-lg shadow-md overflow-hidden">
-                {/* Resim kapsayıcı */}
                 <div className="w-full aspect-square flex justify-center items-center bg-gray-200">
                   <img
                     src={event.img}
@@ -63,23 +67,26 @@ export default function Home() {
           </div>
         </section>
 
-
-        {/* Duyurular */}
-        <section className="max-w-3xl mx-auto mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Duyurular</h2>
-          <ul className="space-y-4">
-            {announcements.map((ann) => (
-              <li key={ann.id} className="border-b border-gray-200 pb-2">
-                <p className="font-semibold">{ann.title}</p>
-                <p className="text-gray-600 text-sm">{ann.date}</p>
-              </li>
-            ))}
-          </ul>
+        {/* Hakkımda / Kartlar */}
+        <section className="max-w-5xl mx-auto mb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
+          {cards.map((item, idx) => (
+            <Link key={idx} href="/about">
+              <div className="w-48 h-48 bg-blue-500 text-white rounded-full flex flex-col items-center justify-center text-center p-4 shadow-lg transform transition-all duration-300 hover:scale-105 hover:bg-blue-600 cursor-pointer">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-24 h-24 rounded-full mb-2 object-cover"
+                />
+                <h3 className="text-xl font-bold">{item.title}</h3>
+                <p className="text-sm">{item.desc}</p>
+              </div>
+            </Link>
+          ))}
         </section>
+
       </main>
 
       <Footer />
     </div>
   );
-
 }

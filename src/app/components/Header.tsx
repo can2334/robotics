@@ -16,9 +16,14 @@ export default function Header() {
                 {/* Desktop menu */}
                 <nav className="hidden md:flex gap-6 text-gray-700">
                     <ul className="flex gap-6">
+                        <a href="./" onClick={() => setSidebarOpen(false)}>Home</a>
                         <li>Etkinlikler</li>
-                        <li>Hakkımızda</li>
+                        <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
                         <a href="#iletişim" onClick={() => setSidebarOpen(false)}>İletişim</a>
+                        <a href="/chat" className="text-blue-500 hover:underline">
+                            Chat’e Git
+                        </a>
+
                     </ul>
                 </nav>
 
@@ -55,9 +60,14 @@ export default function Header() {
                     </button>
 
                     <nav className="mt-8 flex flex-col gap-4 text-gray-700">
+                        <a href="/page" onClick={() => setSidebarOpen(false)}>Home</a>
                         <a href="#etkinlikler" onClick={() => setSidebarOpen(false)}>Etkinlikler</a>
-                        <a href="#hakkimizda" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
+                        <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
                         <a href="#iletişim" onClick={() => setSidebarOpen(false)}>İletişim</a>
+                        <a href="/chat" className="text-blue-500 hover:underline">
+                            Chat’e Git
+                        </a>
+
                     </nav>
                 </div>
             </div>
