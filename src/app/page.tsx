@@ -1,103 +1,85 @@
-import Image from "next/image";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+const sliderData = [
+  { id: 1, title: "VEX Robotics 2025", description: "Ankara'da düzenlenen yarışmaya hazır olun!", img: "https://recf.org/wp-content/uploads/2025/05/Push-Back-Banner.jpg" },
+  { id: 2, title: "FRC Robotik Etkinliği", description: "FRC yarışları hakkında tüm bilgiler.", img: "https://i.ytimg.com/vi/wffri7U5ywQ/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGGUgZShbMA8=&rs=AOn4CLAieAWLOCmXVu4NpT93xdtsC_ZY3g" },
+  { id: 3, title: "VEX Robotics High Stakes", description: "Ankara'da düzenlenen yarışmaya hazır olun!", img: "https://educatrobotics.com/wp-content/uploads/2024/09/VRC_High_Stakes.png" },
+];
+
+const events = [
+  { id: 1, title: "VEX Robotics Skills Challenge", date: "20 Ekim 2025", img: "https://nooby.tech/976-large_default/vex-robotics-competition-program-ages-14-18.jpg" },
+  { id: 2, title: "Kodlama Semineri", date: "25 Ekim 2025", img: "/event2.jpg" },
+  { id: 3, title: "VEX Takım Seçimi", date: "30 Ekim 2025", img: "/event3.jpg" },
+];
+
+const announcements = [
+  { id: 1, title: "Yeni Robotik Takımı Kuruldu", date: "10 Ekim 2025" },
+  { id: 2, title: "Etkinlik Tarihleri Güncellendi", date: "12 Ekim 2025" },
+  { id: 3, title: "Sponsorlarımız Açıklandı", date: "13 Ekim 2025" },
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="flex flex-col min-h-screen bg-white text-gray-900">
+      <Header />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <main className="flex-1 p-6">
+        {/* Slider */}
+        <section className="mb-12">
+          <div className="max-w-6xl mx-auto flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide">
+            {sliderData.map((slide) => (
+              <div key={slide.id} className="min-w-[300px] md:min-w-[500px] snap-start bg-gray-200 rounded-lg overflow-hidden shadow-md">
+                <img src={slide.img} alt={slide.title} className="w-full h-48 object-cover" />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold">{slide.title}</h3>
+                  <p className="text-gray-700">{slide.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Etkinlikler */}
+        <section className="mb-12 max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold mb-6">Etkinlikler</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {events.map((event) => (
+              <div key={event.id} className="bg-gray-100 rounded-lg shadow-md overflow-hidden">
+                {/* Resim kapsayıcı */}
+                <div className="w-full aspect-square flex justify-center items-center bg-gray-200">
+                  <img
+                    src={event.img}
+                    alt={event.title}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-lg">{event.title}</h3>
+                  <p className="text-sm text-gray-600">{event.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+
+        {/* Duyurular */}
+        <section className="max-w-3xl mx-auto mb-12">
+          <h2 className="text-2xl font-semibold mb-6">Duyurular</h2>
+          <ul className="space-y-4">
+            {announcements.map((ann) => (
+              <li key={ann.id} className="border-b border-gray-200 pb-2">
+                <p className="font-semibold">{ann.title}</p>
+                <p className="text-gray-600 text-sm">{ann.date}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      <Footer />
     </div>
   );
+
 }
