@@ -1,9 +1,8 @@
-// src/app/contact/page.tsx
 "use client";
+
+import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useState } from "react";
-
 export default function ContactPage() {
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [submitted, setSubmitted] = useState(false);
@@ -14,15 +13,29 @@ export default function ContactPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Burada Netlify Forms veya Vercel serverless API çağrısı yapılabilir
-        console.log(formData);
-        setSubmitted(true);
-        setFormData({ name: "", email: "", message: "" });
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await res.json();
+            if (result.success) {
+                alert("Mesaj gönderildi!");
+                setFormData({ name: "", email: "", message: "" });
+            } else {
+                alert("Gönderilemedi: " + result.message);
+            }
+        } catch (error) {
+            alert("Sunucu hatası: " + error);
+        }
     };
 
-    return (
 
-        <div className="min-h-screen flex flex-col items-center justify-center">
+
+    return (
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
             <Header />
             <br />
             <h1 className="text-3xl font-bold mb-8">İletişim</h1>
@@ -34,7 +47,15 @@ export default function ContactPage() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-4"
+                >
+                    <input type="hidden" name="form-name" value="contact" />
+
                     <input
                         type="text"
                         name="name"
