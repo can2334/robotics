@@ -12,8 +12,8 @@ interface TeamMember {
     location: string;
 }
 
-// Teknoloji logoları
 const techLogos: Record<string, string> = {
+    // Yazılım dilleri
     Html: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
     Css: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
     JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
@@ -26,13 +26,30 @@ const techLogos: Record<string, string> = {
     C: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
     "C#": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
     "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+
+    // Tasarım araçları
+    Figma: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    Adobe: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Adobe_Acrobat_DC_logo_2020.svg/250px-Adobe_Acrobat_DC_logo_2020.svg.png",
+    Photoshop: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-line.svg",
+    Illustrator: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-line.svg",
+    AfterEffects: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-line.svg",
+    Premiere: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premiere/premiere-line.svg",
+
+    // Diğer araçlar ve platformlar
+    Git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    GitHub: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    Linux: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+
+    // Default logo
+    default: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/file/file-original.svg",
 };
 
 const teamMembers: TeamMember[] = [
     {
         name: "Yunus Emre Yüksel",
         role: "Takım Lideri",
-        img: "/images/yazilim.jpg",
+        img: "/images/emre.png",
         bio: "Web ve mobil uygulama geliştirme, robotik projeler ve takım koordinasyonu üzerine çalışıyor.",
         languages: ["Html", "Css", "JavaScript", "React"],
         location: "Ankara, Türkiye",
@@ -40,15 +57,39 @@ const teamMembers: TeamMember[] = [
     {
         name: "Can Akbulut",
         role: "Yazılım Geliştirici",
-        img: "/images/yazilim.jpg",
+        img: "/images/can.png",
         bio: "Serçev MTAL Bilişim öğrencisi. 2023 yılında takıma katıldı. Web, mobil ve robotik alanlarında aktif olarak yer alıyor. TÜBİTAK 4006 gibi projelerde deneyim kazandı.",
         languages: ["Html", "Css", "JavaScript", "TypeScript", "React", "Php", "Python", "Sql", "MySQL", "C", "C#", "C++"],
         location: "Ankara, Türkiye",
     },
     {
+        name: "Ömer Yiğit Yüksel",
+        role: "Tasarımcı",
+        img: "/images/ömer.png",
+        bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
+        languages: ["Figma", "Adobe", "Css"],
+        location: "İzmir, Türkiye",
+    },
+    {
         name: "Arda Şengül",
         role: "Tasarımcı",
-        img: "/images/yazilim.jpg",
+        img: "/images/arda.png",
+        bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
+        languages: ["Figma", "Adobe XD", "Css"],
+        location: "İzmir, Türkiye",
+    },
+    {
+        name: "Caner İlçe",
+        role: "Tasarımcı",
+        img: "/images/canoz.png",
+        bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
+        languages: ["Figma", "Adobe XD", "Css"],
+        location: "İzmir, Türkiye",
+    },
+    {
+        name: "Batuhan Çelik",
+        role: "Tasarımcı",
+        img: "/images/batu.png",
         bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
         languages: ["Figma", "Adobe XD", "Css"],
         location: "İzmir, Türkiye",

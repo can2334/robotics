@@ -5,7 +5,13 @@ export async function POST(req: Request) {
     try {
         const { name, email, message } = await req.json();
 
-        // Gmail transporter
+        if (!name || !email || !message) {
+            return NextResponse.json(
+                { success: false, message: "Lütfen tüm alanları doldurun." },
+                { status: 400 }
+            );
+        }
+
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -14,22 +20,22 @@ export async function POST(req: Request) {
             },
         });
 
-        // Mail gönderimi
+        // Sana gidecek mail
         await transporter.sendMail({
-            from: {
-                name: "TRC İletişim Botu", // burada istediğin ismi yaz
-                address: process.env.GMAIL_ADDRESS!,
-            },
-            to: "turkiyeroboticscommunity@gmail.com", // mesajın gideceği adres
-            subject: `Yeni iletişim mesajı: ${name}`,
-            text: `İsim: ${name}\nEmail: ${email}\nMesaj: ${message}`,
+            from: `"${name}" <${process.env.GMAIL_ADDRESS}>`,
+            to: "turkiyeroboticscommunity@gmail.com",
+            subject: `📩 Yeni iletişim mesajı: ${name}`,
             html: `
-        <div style="font-family:sans-serif; line-height:1.6; color:#333">
-          <h2>Yeni iletişim mesajı</h2>
-          <p><strong>İsim:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
+        <div style="font-family: Arial, sans-serif; padding: 20px; background: #f9fafb; border-radius: 10px;">
+          <h2 style="color: #0d6efd;">Yeni İletişim Mesajı</h2>
+          <p><strong>Gönderen:</strong> ${name}</p>
+          <p><strong>E-posta:</strong> ${email}</p>
           <p><strong>Mesaj:</strong></p>
-          <p style="background:#f3f3f3; padding:10px; border-radius:6px">${message}</p>
+          <div style="padding: 10px; background: #fff; border-radius: 8px; border: 1px solid #eee;">
+            ${message.replace(/\n/g, "<br>")}
+          </div>
+          <hr style="margin: 20px 0;">
+          <p style="font-size: 12px; color: #888;">Bu mesaj web sitendeki iletişim formundan gönderilmiştir.</p>
         </div>
       `,
         });
@@ -38,7 +44,7 @@ export async function POST(req: Request) {
     } catch (err) {
         console.error("Mail send error:", err);
         return NextResponse.json(
-            { success: false, message: "Sunucu hatası" },
+            { success: false, message: "Sunucu hatası. Mail gönderilemedi." },
             { status: 500 }
         );
     }
