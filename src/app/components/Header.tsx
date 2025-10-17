@@ -60,7 +60,7 @@ export default function Header() {
                     </button>
 
                     <nav className="mt-8 flex flex-col gap-4 text-gray-700">
-                        <a href="/page" onClick={() => setSidebarOpen(false)}>Home</a>
+                        <a href="/" onClick={() => setSidebarOpen(false)}>Home</a>
                         <a href="#etkinlikler" onClick={() => setSidebarOpen(false)}>Etkinlikler</a>
                         <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
                         <a href="#iletişim" onClick={() => setSidebarOpen(false)}>İletişim</a>
