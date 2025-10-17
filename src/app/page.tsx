@@ -39,6 +39,7 @@ export default function Home() {
       ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-900 text-white"}`}>
       <Header theme={theme} toggleTheme={toggleTheme} />
 
+
       <main className="flex-1 p-6">
 
         {/* Slider Bölümü */}

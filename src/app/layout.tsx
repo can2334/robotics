@@ -5,8 +5,7 @@ import "./globals.css";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { useState, useEffect } from "react";
-import Head from "./components/head";
-
+import { ThemeProvider } from "./components/ThemeContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -41,17 +40,14 @@ export default function RootLayout({
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
   return (
-    <html lang="tr" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white transition-colors duration-300">
-        <Head />
-
-        {/* Dark mode toggle */}
-
-
-        {children}
-
-        <Analytics />
-        <SpeedInsights />
+    <html>
+      <body>
+        <ThemeProvider>
+          {/* Dark mode toggle */}
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );
