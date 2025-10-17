@@ -12,10 +12,7 @@ const sliderData = [
 const cards = [
   { title: "Yazılım", desc: "Web ve mobil uygulama geliştirme", img: "/images/yazilim.jpg" },
   { title: "Robotics", desc: "VEX ve Arduino projeleri", img: "https://recf.org/wp-content/uploads/2025/05/Push-Back-Banner.jpg" },
-  { title: "Tasarım", desc: "UI/UX ve modern tasarım", img: "/images/tasarim.jpg" },
-  { title: "Proje Yönetimi", desc: "Takım ve süreç yönetimi", img: "/images/proje.jpg" },
-  { title: "Öğrenme", desc: "Yeni teknolojilerle sürekli gelişim", img: "/images/ogrenme.jpg" },
-  { title: "İlgi Alanları", desc: "AI, IoT ve yenilikçi projeler", img: "/images/ilgi.jpg" },
+  { title: "Tasarım", desc: "Abode Photoshop ve modern tasarım", img: "https://www.matbaanyaninda.com/upload/sayfa_resimleri/en%20iyi%20grafik%20tasarim%20programlari%20photoshop.jpg" },
 ];
 
 export default function Home() {
