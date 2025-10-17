@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -9,11 +10,11 @@ interface TeamMember {
     img: string;
     bio: string;
     languages: string[];
+    Technology: string[];
     location: string;
 }
 
 const techLogos: Record<string, string> = {
-    // Yazılım dilleri
     Html: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
     Css: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
     JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
@@ -26,22 +27,17 @@ const techLogos: Record<string, string> = {
     C: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
     "C#": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
     "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
-
-    // Tasarım araçları
     Figma: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-    Adobe: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Adobe_Acrobat_DC_logo_2020.svg/250px-Adobe_Acrobat_DC_logo_2020.svg.png",
+    "Adobe XD": "https://upload.wikimedia.org/wikipedia/commons/9/90/Adobe_XD_CC_icon.svg",
     Photoshop: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-line.svg",
     Illustrator: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-line.svg",
     AfterEffects: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-line.svg",
     Premiere: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premiere/premiere-line.svg",
-
-    // Diğer araçlar ve platformlar
+    Adobe: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Adobe_Acrobat_DC_logo_2020.svg/250px-Adobe_Acrobat_DC_logo_2020.svg.png",
     Git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
     GitHub: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
     Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
     Linux: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-
-    // Default logo
     default: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/file/file-original.svg",
 };
 
@@ -52,6 +48,7 @@ const teamMembers: TeamMember[] = [
         img: "/images/emre.png",
         bio: "Web ve mobil uygulama geliştirme, robotik projeler ve takım koordinasyonu üzerine çalışıyor.",
         languages: ["Html", "Css", "JavaScript", "React"],
+        Technology: [],
         location: "Ankara, Türkiye",
     },
     {
@@ -60,6 +57,7 @@ const teamMembers: TeamMember[] = [
         img: "/images/can.png",
         bio: "Serçev MTAL Bilişim öğrencisi. 2023 yılında takıma katıldı. Web, mobil ve robotik alanlarında aktif olarak yer alıyor. TÜBİTAK 4006 gibi projelerde deneyim kazandı.",
         languages: ["Html", "Css", "JavaScript", "TypeScript", "React", "Php", "Python", "Sql", "MySQL", "C", "C#", "C++"],
+        Technology: [],
         location: "Ankara, Türkiye",
     },
     {
@@ -67,32 +65,36 @@ const teamMembers: TeamMember[] = [
         role: "Tasarımcı",
         img: "/images/ömer.png",
         bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
-        languages: ["Figma", "Adobe", "Css"],
-        location: "İzmir, Türkiye",
+        languages: [],
+        Technology: ["Figma", "Adobe", "Css"],
+        location: "Ankara, Türkiye",
     },
     {
         name: "Arda Şengül",
         role: "Tasarımcı",
         img: "/images/arda.png",
         bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
-        languages: ["Figma", "Adobe XD", "Css"],
-        location: "İzmir, Türkiye",
+        languages: [],
+        Technology: ["Figma", "Adobe XD", "Css"],
+        location: "Ankara, Türkiye",
     },
     {
         name: "Caner İlçe",
         role: "Tasarımcı",
         img: "/images/canoz.png",
         bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
-        languages: ["Figma", "Adobe XD", "Css"],
-        location: "İzmir, Türkiye",
+        languages: [],
+        Technology: ["Figma", "Adobe XD", "Css"],
+        location: "Ankara, Türkiye",
     },
     {
         name: "Batuhan Çelik",
-        role: "Tasarımcı",
+        role: "Mekanik",
         img: "/images/batu.png",
         bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
-        languages: ["Figma", "Adobe XD", "Css"],
-        location: "İzmir, Türkiye",
+        languages: ["Python"],
+        Technology: ["Adobe XD", "Css"],
+        location: "Ankara, Türkiye",
     },
 ];
 
@@ -102,6 +104,16 @@ export default function About() {
 
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 text-gray-900">
+            {/* SEO & Metadata */}
+            <Head>
+                <title>Türkiye Robotics Community - Takım</title>
+                <meta
+                    name="description"
+                    content="Türkiye Robotics Community ekibi olarak teknolojiyi, mühendisliği ve yaratıcılığı birleştiriyoruz."
+                />
+                <meta name="keywords" content="robotik, yazılım, tasarım, mühendislik, takım üyeleri" />
+            </Head>
+
             <Header />
 
             <main className="flex-1 max-w-6xl mx-auto p-8">
@@ -125,6 +137,7 @@ export default function About() {
                                         src={member.img}
                                         alt={member.name}
                                         className="w-32 h-32 rounded-full object-cover border-4 border-indigo-500 group-hover:scale-105 transition-transform duration-300"
+                                        loading="lazy" // Lazy-loading
                                     />
                                     <div className="absolute inset-0 rounded-full bg-indigo-500 opacity-0 group-hover:opacity-20 transition" />
                                 </div>
@@ -155,28 +168,56 @@ export default function About() {
                                     src={member.img}
                                     alt={member.name}
                                     className="w-28 h-28 rounded-full border-4 border-indigo-500 mb-4"
+                                    loading="lazy"
                                 />
                                 <h2 className="text-2xl font-bold text-gray-900">{member.name}</h2>
                                 <p className="text-sm text-gray-500 mb-4">{member.role}</p>
                                 <p className="text-gray-700 mb-4">{member.bio}</p>
 
                                 <div className="w-full text-left">
-                                    <h3 className="font-semibold mb-2 text-indigo-600">Bildiği Diller / Teknolojiler</h3>
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {member.languages.map((lang) => (
-                                            <div
-                                                key={lang}
-                                                className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full shadow-sm text-sm"
-                                            >
-                                                <img
-                                                    src={techLogos[lang] || "/logos/default.png"}
-                                                    alt={lang}
-                                                    className="w-4 h-4 object-contain"
-                                                />
-                                                <span>{lang}</span>
+                                    {member.languages.length > 0 && (
+                                        <>
+                                            <h3 className="font-semibold mb-2 text-indigo-600">Bildiği Yazılım Dilleri</h3>
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {member.languages.map((lang) => (
+                                                    <div
+                                                        key={lang}
+                                                        className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full shadow-sm text-sm"
+                                                    >
+                                                        <img
+                                                            src={techLogos[lang] || techLogos.default}
+                                                            alt={lang}
+                                                            className="w-4 h-4 object-contain"
+                                                            loading="lazy"
+                                                        />
+                                                        <span>{lang}</span>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
+                                        </>
+                                    )}
+
+                                    {member.Technology.length > 0 && (
+                                        <>
+                                            <h3 className="font-semibold mb-2 text-indigo-600">Kullandığı Teknolojiler / Araçlar</h3>
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {member.Technology.map((tech) => (
+                                                    <div
+                                                        key={tech}
+                                                        className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full shadow-sm text-sm"
+                                                    >
+                                                        <img
+                                                            src={techLogos[tech] || techLogos.default}
+                                                            alt={tech}
+                                                            className="w-4 h-4 object-contain"
+                                                            loading="lazy"
+                                                        />
+                                                        <span>{tech}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
 
                                     <h3 className="font-semibold mb-1 text-indigo-600">Konum</h3>
                                     <p>{member.location}</p>

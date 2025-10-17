@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,7 +11,6 @@ const sliderData = [
   { id: 3, title: "VEX Robotics High Stakes", description: "Ankara'da düzenlenen yarışmaya hazır olun!", img: "https://educatrobotics.com/wp-content/uploads/2024/09/VRC_High_Stakes.png" },
 ];
 
-
 const cards = [
   { title: "Yazılım", desc: "Web ve mobil uygulama geliştirme", img: "/images/yazilim.jpg" },
   { title: "Robotics", desc: "VEX ve Arduino projeleri", img: "https://recf.org/wp-content/uploads/2025/05/Push-Back-Banner.jpg" },
@@ -16,9 +18,26 @@ const cards = [
 ];
 
 export default function Home() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    if (storedTheme) setTheme(storedTheme);
+  }, []);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    if (theme === "dark") html.classList.add("dark");
+    else html.classList.remove("dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+
   return (
-    <div className="flex flex-col min-h-screen bg-white text-gray-900">
-      <Header />
+    <div className={`flex flex-col min-h-screen transition-colors duration-300
+      ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-900 text-white"}`}>
+      <Header theme={theme} toggleTheme={toggleTheme} />
 
       <main className="flex-1 p-6">
 
@@ -26,17 +45,16 @@ export default function Home() {
         <section className="mb-12">
           <div className="max-w-6xl mx-auto flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide">
             {sliderData.map((slide) => (
-              <div key={slide.id} className="min-w-[300px] md:min-w-[500px] snap-start bg-gray-200 rounded-lg overflow-hidden shadow-md">
+              <div key={slide.id} className="min-w-[300px] md:min-w-[500px] snap-start bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden shadow-md transition-colors duration-300">
                 <img src={slide.img} alt={slide.title} className="w-full h-48 object-cover" />
                 <div className="p-4">
                   <h3 className="text-xl font-bold">{slide.title}</h3>
-                  <p className="text-gray-700">{slide.description}</p>
+                  <p className="text-gray-700 dark:text-gray-300">{slide.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
-
 
         {/* Kartlar Bölümü */}
         <section className="max-w-6xl mx-auto mb-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
@@ -52,7 +70,7 @@ export default function Home() {
               />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-200 line-clamp-2">{item.desc}</p>
+                <p className="text-sm text-gray-200 dark:text-gray-100 line-clamp-2">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -60,7 +78,7 @@ export default function Home() {
 
       </main>
 
-      <Footer />
+      <Footer theme={theme} />
     </div>
   );
 }

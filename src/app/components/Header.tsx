@@ -1,76 +1,105 @@
 "use client";
 
 import { useState } from "react";
-import { X, Menu } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
-export default function Header() {
+export default function Header({
+    theme,
+    toggleTheme,
+}: {
+    theme: "light" | "dark";
+    toggleTheme: () => void;
+}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    // Menümüzün listesi
+    const menuItems = [
+        { label: "Home", href: "/" },
+        { label: "Hakkımızda", href: "/about" },
+        { label: "İletişim", href: "/contact" },
+        { label: "Chat’e Git", href: "/chat" },
+    ];
 
     return (
         <>
-            <header className="w-full bg-white shadow-md flex justify-between items-center px-6 py-4">
+            <header
+                className={`w-full flex justify-between items-center px-6 py-4 border-b transition-colors duration-300
+        ${theme === "light" ? "bg-white text-gray-900 border-gray-300" : "bg-gray-900 text-white border-gray-700"}`}
+            >
+                {/* Desktop ve Mobile Ortak Alan */}
                 <div className="flex items-center gap-4">
+
+
+                    {/* Logo / Başlık */}
                     <h1 className="text-2xl font-bold">Türkiye Robotics Community</h1>
                 </div>
 
-                {/* Desktop menu */}
-                <nav className="hidden md:flex gap-6 text-gray-700">
-                    <ul className="flex gap-6">
-                        <a href="./" onClick={() => setSidebarOpen(false)}>Home</a>
-                        <li>Etkinlikler</li>
-                        <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
-                        <a href="/contact" onClick={() => setSidebarOpen(false)}>İletişim</a>
-                        <a href="/chat" className="text-blue-500 hover:underline">
-                            Chat’e Git
+                {/* Desktop Menü */}
+                <nav className="hidden md:flex gap-6">
+                    {/* Tema ikonu */}
+                    <button onClick={toggleTheme} className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+                    </button>
+                    {menuItems.map((item) => (
+                        <a
+                            key={item.href}
+                            href={item.href}
+                            className="hover:text-indigo-500 transition"
+                        >
+                            {item.label}
                         </a>
-
-                    </ul>
+                    ))}
                 </nav>
+                {/* Tema ikonu */}
+                <button onClick={toggleTheme} className="md:hidden">
+                    {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+                </button>
+                {/* Mobile Hamburger */}
+                <button className="md:hidden" onClick={() => setSidebarOpen(true)}>
 
-                {/* Mobile hamburger */}
-                <button
-                    className="md:hidden text-gray-700"
-                    onClick={() => setSidebarOpen(true)}
-                >
                     <Menu size={24} />
                 </button>
-            </header>
+            </header >
 
-            {/* Sidebar overlay */}
-            <div
+            {/* Mobile Sidebar */}
+            < div
                 className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                    }`}
+                    }`
+                }
             >
-                {/* Arka plan karartma */}
-                <div
-                    className="fixed inset-0 bg-black opacity-50"
+                {/* Overlay */}
+                < div
+                    className="fixed inset-0 bg-black/50"
                     onClick={() => setSidebarOpen(false)}
-                ></div>
+                ></div >
 
-                {/* Sidebar panel */}
-                <div
-                    className={`relative bg-white w-64 h-full shadow-md p-6 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "translate-x-full"
+                {/* Sidebar Panel */}
+                < div
+                    className={`relative bg-white dark:bg-gray-900 w-64 h-full shadow-md p-6 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "translate-x-full"
                         }`}
                 >
                     <button
-                        className="absolute top-4 right-4 text-gray-700"
+                        className="absolute top-4 right-4 text-gray-700 dark:text-gray-200"
                         onClick={() => setSidebarOpen(false)}
                     >
                         <X size={24} />
                     </button>
 
-                    <nav className="mt-8 flex flex-col gap-4 text-gray-700">
-                        <a href="/" onClick={() => setSidebarOpen(false)}>Home</a>
-                        <a href="#etkinlikler" onClick={() => setSidebarOpen(false)}>Etkinlikler</a>
-                        <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
-                        <a href="/contact" onClick={() => setSidebarOpen(false)}>İletişim</a>
-                        <a href="/chat" className="text-blue-500 hover:underline">
-                            Chat’e Git
-                        </a>
-
+                    <nav className="mt-8 flex flex-col gap-4 text-gray-900 dark:text-white">
+                        {/* Tema ikonu */}
+                        {menuItems.map((item) => (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                className="hover:text-indigo-500 transition"
+                                onClick={() => setSidebarOpen(false)}
+                            >
+                                {item.label}
+                            </a>
+                        ))}
                     </nav>
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     );
 }
