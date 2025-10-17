@@ -1,27 +1,31 @@
 import { NextResponse } from "next/server";
-import sgMail from "@sendgrid/mail";
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
     try {
         const { name, email, message } = await req.json();
 
-        const msg = {
-            to: "turkiyeroboticscommunity@gmail.com", // Mesajın geleceği mail
-            from: "umutcansalman3@gmail.com", // SendGrid’de onaylı domain
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.GMAIL_ADDRESS,
+                pass: process.env.GMAIL_APP_PASSWORD,
+            },
+        });
+
+        await transporter.sendMail({
+            from: process.env.GMAIL_ADDRESS,
+            to: "turkiyeroboticscommunity@gmail.com", // Mesajın gideceği mail
             subject: `Yeni iletişim mesajı: ${name}`,
             text: `İsim: ${name}\nEmail: ${email}\nMesaj: ${message}`,
             html: `<p><strong>İsim:</strong> ${name}</p>
              <p><strong>Email:</strong> ${email}</p>
              <p><strong>Mesaj:</strong> ${message}</p>`,
-        };
+        });
 
-        await sgMail.send(msg);
-
-        return NextResponse.json({ success: true, message: "Mesaj gönderildi!" });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ success: false, message: "Bir hata oluştu." }, { status: 500 });
+        return NextResponse.json({ success: true });
+    } catch (err) {
+        console.error("Mail send error:", err);
+        return NextResponse.json({ success: false, message: "Sunucu hatası" }, { status: 500 });
     }
 }
