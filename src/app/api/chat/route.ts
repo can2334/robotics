@@ -7,11 +7,9 @@ export async function POST(req: Request) {
         // API anahtarını al
         const apiKey = process.env.OPENAI_API_KEY;
         if (!apiKey) {
-            return NextResponse.json(
-                { error: "API anahtarı bulunamadı." },
-                { status: 500 }
-            );
+            return NextResponse.json({ error: "API anahtarı bulunamadı." }, { status: 500 });
         }
+
 
         // OpenAI endpoint’ine isteği at
         const response = await fetch("https://api.openai.com/v1/chat/completions", {

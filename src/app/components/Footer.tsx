@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <footer className="w-full bg-gray-100 text-gray-700 py-6 mt-6">
             <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div className="text-center md:text-left">
+                <div className="text-center md:text-center">
                     <h2 className="font-bold text-lg">Türkiye Robotics Community</h2>
                     <p className="text-sm mt-1">Ankara, Türkiye</p>
                 </div>
@@ -16,8 +16,8 @@ export default function Footer() {
                 </div>
 
                 <div className="text-center md:text-right text-sm">
-                    <p>info@dernek.com</p>
-                    <p>+90 555 555 55 55</p>
+                    <p>turkiyeroboticscommunity@gmail.com</p>
+                    <p>+90 534 321 47 65</p>
                 </div>
             </div>
 
@@ -26,4 +26,4 @@ export default function Footer() {
             </div>
         </footer>
     );
-}
+} 
