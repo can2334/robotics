@@ -101,7 +101,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 export default function About() {
-    const { theme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
     const [selectedMember, setSelectedMember] = useState<string | null>(null);
     const member = teamMembers.find((m) => m.name === selectedMember);
 
@@ -116,7 +116,7 @@ export default function About() {
                 <meta name="keywords" content="robotik, yazılım, tasarım, mühendislik, takım üyeleri" />
             </Head>
 
-            <Header theme={theme} toggleTheme={() => { }} />
+            <Header theme={theme} toggleTheme={toggleTheme} />
 
             <main className="flex-1 max-w-6xl mx-auto p-8">
                 <h1 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-500">

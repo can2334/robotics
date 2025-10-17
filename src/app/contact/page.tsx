@@ -36,15 +36,15 @@ export default function ContactPage() {
     };
 
     return (
-        <div className={`min-h-screen flex flex-col transition-colors duration-300 ${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"}`}>
+        <div className={`min-h-screen flex flex-col transition-colors duration-300 ${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-gray-100"}`}>
             <Header theme={theme} toggleTheme={toggleTheme} />
 
             <main className="flex-1 w-full max-w-3xl mx-auto p-6">
-                <h1 className="text-3xl font-bold mb-8 text-center">İletişim</h1>
+                <h1 className={`text-3xl font-bold mb-8 text-center ${theme === "light" ? "text-gray-900" : "text-white"}`}>İletişim</h1>
 
-                <div className={`w-full rounded-xl shadow-lg p-8 ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-800 text-white"}`}>
+                <div className={`w-full rounded-xl shadow-lg p-8 ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-800 text-gray-100"}`}>
                     {submitted && (
-                        <div className="bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 p-4 mb-6 rounded">
+                        <div className={`bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 p-4 mb-6 rounded`}>
                             Mesajınız başarıyla gönderildi!
                         </div>
                     )}
@@ -57,7 +57,7 @@ export default function ContactPage() {
                             value={formData.name}
                             onChange={handleChange}
                             required
-                            className="border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
+                            className={`border rounded px-4 py-2 focus:outline-none focus:ring-2 ${theme === "light" ? "border-gray-300 focus:ring-blue-400 text-gray-900" : "border-gray-600 focus:ring-blue-500 text-gray-100 bg-gray-700"}`}
                         />
                         <input
                             type="email"
@@ -66,7 +66,7 @@ export default function ContactPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
-                            className="border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
+                            className={`border rounded px-4 py-2 focus:outline-none focus:ring-2 ${theme === "light" ? "border-gray-300 focus:ring-blue-400 text-gray-900" : "border-gray-600 focus:ring-blue-500 text-gray-100 bg-gray-700"}`}
                         />
                         <textarea
                             name="message"
@@ -75,17 +75,17 @@ export default function ContactPage() {
                             onChange={handleChange}
                             required
                             rows={5}
-                            className="border border-gray-300 dark:border-gray-600 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500 resize-none"
+                            className={`border rounded px-4 py-2 focus:outline-none focus:ring-2 resize-none ${theme === "light" ? "border-gray-300 focus:ring-blue-400 text-gray-900" : "border-gray-600 focus:ring-blue-500 text-gray-100 bg-gray-700"}`}
                         />
                         <button
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded transition-colors"
+                            className={`bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded transition-colors`}
                         >
                             Gönder
                         </button>
                     </form>
 
-                    <div className="mt-8 text-gray-700 dark:text-gray-300">
+                    <div className={`mt-8 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>
                         <p>E-posta: info@turkiyeroboticscommunity.com</p>
                         <p>Telefon: +90 555</p>
                     </div>
