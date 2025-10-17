@@ -19,7 +19,7 @@ export default function Header() {
                         <a href="./" onClick={() => setSidebarOpen(false)}>Home</a>
                         <li>Etkinlikler</li>
                         <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
-                        <a href="#iletişim" onClick={() => setSidebarOpen(false)}>İletişim</a>
+                        <a href="/contact" onClick={() => setSidebarOpen(false)}>İletişim</a>
                         <a href="/chat" className="text-blue-500 hover:underline">
                             Chat’e Git
                         </a>
@@ -63,7 +63,7 @@ export default function Header() {
                         <a href="/" onClick={() => setSidebarOpen(false)}>Home</a>
                         <a href="#etkinlikler" onClick={() => setSidebarOpen(false)}>Etkinlikler</a>
                         <a href="/about" onClick={() => setSidebarOpen(false)}>Hakkımızda</a>
-                        <a href="#iletişim" onClick={() => setSidebarOpen(false)}>İletişim</a>
+                        <a href="/contact" onClick={() => setSidebarOpen(false)}>İletişim</a>
                         <a href="/chat" className="text-blue-500 hover:underline">
                             Chat’e Git
                         </a>
