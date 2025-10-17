@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useTheme } from "../components/ThemeContext"; // context'ten alıyoruz
+import { useTheme } from "../components/ThemeContext";
+import { useState } from "react";
 import Head from "next/head";
 
 interface TeamMember {
@@ -57,7 +57,7 @@ const teamMembers: TeamMember[] = [
         name: "Can Akbulut",
         role: "Yazılım Geliştirici",
         img: "/images/can.png",
-        bio: "Serçev MTAL Bilişim öğrencisi. 2023 yılında takıma katıldı. Web, mobil ve robotik alanlarında aktif olarak yer alıyor.",
+        bio: "Serçev MTAL Bilişim öğrencisi. 2023 yılında takıma katıldı. Web, mobil ve robotik alanlarında aktif olarak yer alıyor. TÜBİTAK 4006 gibi projelerde deneyim kazandı.",
         languages: ["Html", "Css", "JavaScript", "TypeScript", "React", "Php", "Python", "Sql", "MySQL", "C", "C#", "C++"],
         Technology: [],
         location: "Ankara, Türkiye",
@@ -71,16 +71,42 @@ const teamMembers: TeamMember[] = [
         Technology: ["Figma", "Adobe", "Css"],
         location: "Ankara, Türkiye",
     },
-    // diğer üyeleri aynı şekilde ekleyebilirsin
+    {
+        name: "Arda Şengül",
+        role: "Tasarımcı",
+        img: "/images/arda.png",
+        bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
+        languages: [],
+        Technology: ["Figma", "Adobe XD", "Css"],
+        location: "Ankara, Türkiye",
+    },
+    {
+        name: "Caner İlçe",
+        role: "Tasarımcı",
+        img: "/images/canoz.png",
+        bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
+        languages: [],
+        Technology: ["Figma", "Adobe XD", "Css"],
+        location: "Ankara, Türkiye",
+    },
+    {
+        name: "Batuhan Çelik",
+        role: "Mekanik",
+        img: "/images/batu.png",
+        bio: "UI/UX tasarım, kullanıcı deneyimi ve modern web arayüzleri üzerine yoğunlaşıyor.",
+        languages: ["Python"],
+        Technology: ["Adobe XD", "Css"],
+        location: "Ankara, Türkiye",
+    },
 ];
 
 export default function About() {
-    const { theme, toggleTheme } = useTheme();
+    const { theme } = useTheme();
     const [selectedMember, setSelectedMember] = useState<string | null>(null);
     const member = teamMembers.find((m) => m.name === selectedMember);
 
     return (
-        <div className={`flex flex-col min-h-screen transition-colors duration-300 ${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"}`}>
+        <div className={`${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"} flex flex-col min-h-screen transition-colors duration-300`}>
             <Head>
                 <title>Türkiye Robotics Community - Takım</title>
                 <meta
@@ -90,13 +116,13 @@ export default function About() {
                 <meta name="keywords" content="robotik, yazılım, tasarım, mühendislik, takım üyeleri" />
             </Head>
 
-            <Header theme={theme} toggleTheme={toggleTheme} />
+            <Header theme={theme} toggleTheme={() => { }} />
 
             <main className="flex-1 max-w-6xl mx-auto p-8">
                 <h1 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-500">
                     Takım Üyeleri
                 </h1>
-                <p className="text-center mb-12 text-gray-600">
+                <p className={`${theme === "light" ? "text-gray-600" : "text-gray-300"} text-center mb-12`}>
                     Türkiye Robotics Community ekibi olarak teknolojiyi, mühendisliği ve yaratıcılığı birleştiriyoruz.
                 </p>
 
@@ -105,7 +131,7 @@ export default function About() {
                         <div
                             key={member.name}
                             onClick={() => setSelectedMember(member.name)}
-                            className="cursor-pointer group relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl border border-transparent hover:border-indigo-500"
+                            className={`cursor-pointer group relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl border border-transparent hover:border-indigo-500 ${theme === "light" ? "bg-white" : "bg-gray-800"}`}
                         >
                             <div className="flex flex-col items-center p-6">
                                 <div className="relative">
@@ -117,8 +143,8 @@ export default function About() {
                                     />
                                     <div className="absolute inset-0 rounded-full bg-indigo-500 opacity-0 group-hover:opacity-20 transition" />
                                 </div>
-                                <h3 className="text-xl font-bold mt-4">{member.name}</h3>
-                                <p className="text-sm text-gray-500">{member.role}</p>
+                                <h3 className={`${theme === "light" ? "text-gray-900" : "text-white"} text-xl font-bold mt-4`}>{member.name}</h3>
+                                <p className={`${theme === "light" ? "text-gray-500" : "text-gray-300"} text-sm`}>{member.role}</p>
                             </div>
                         </div>
                     ))}
@@ -130,7 +156,7 @@ export default function About() {
                         onClick={() => setSelectedMember(null)}
                     >
                         <div
-                            className="bg-white dark:bg-gray-800 p-8 rounded-2xl max-w-lg w-full shadow-2xl relative animate-slideUp"
+                            className={`${theme === "light" ? "bg-white text-gray-900" : "bg-gray-800 text-white"} p-8 rounded-2xl max-w-lg w-full shadow-2xl relative animate-slideUp`}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
@@ -146,9 +172,9 @@ export default function About() {
                                     className="w-28 h-28 rounded-full border-4 border-indigo-500 mb-4"
                                     loading="lazy"
                                 />
-                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{member.name}</h2>
-                                <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">{member.role}</p>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">{member.bio}</p>
+                                <h2 className={`${theme === "light" ? "text-gray-900" : "text-white"} text-2xl font-bold`}>{member.name}</h2>
+                                <p className={`${theme === "light" ? "text-gray-500" : "text-gray-300"} text-sm mb-4`}>{member.role}</p>
+                                <p className={`${theme === "light" ? "text-gray-700" : "text-gray-300"} mb-4`}>{member.bio}</p>
 
                                 <div className="w-full text-left">
                                     {member.languages.length > 0 && (
@@ -158,7 +184,7 @@ export default function About() {
                                                 {member.languages.map((lang) => (
                                                     <div
                                                         key={lang}
-                                                        className="flex items-center gap-1 bg-indigo-100 text-indigo-700 dark:bg-gray-700 dark:text-indigo-300 px-2 py-1 rounded-full shadow-sm text-sm"
+                                                        className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full shadow-sm text-sm"
                                                     >
                                                         <img
                                                             src={techLogos[lang] || techLogos.default}
@@ -180,7 +206,7 @@ export default function About() {
                                                 {member.Technology.map((tech) => (
                                                     <div
                                                         key={tech}
-                                                        className="flex items-center gap-1 bg-indigo-100 text-indigo-700 dark:bg-gray-700 dark:text-indigo-300 px-2 py-1 rounded-full shadow-sm text-sm"
+                                                        className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full shadow-sm text-sm"
                                                     >
                                                         <img
                                                             src={techLogos[tech] || techLogos.default}
