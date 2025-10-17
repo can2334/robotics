@@ -60,7 +60,7 @@ export default function Chat() {
     const copyToClipboard = (text: string) => navigator.clipboard.writeText(text);
 
     return (
-        <div className={`flex flex-col h-[80vh] w-full max-w-2xl mx-auto overflow-hidden transition-colors duration-300 bg-[#121212]`}>
+        <div className={`flex flex-col h-[80vh] w-full max-w-2xl mx-auto overflow-hidden transition-colors duration-300 bg-[#1e1e1e]`}>
 
             {/* Mesaj alanı */}
             <div
@@ -74,7 +74,7 @@ export default function Chat() {
                                 className={`relative w-full md:w-3/4 rounded-xl overflow-hidden
                                     ${m.role === "user"
                                         ? "bg-[#056a56] text-white"
-                                        : "bg-[#1e1e1e] text-white"
+                                        : "bg-[#2a2a2a] text-white"
                                     }`}
                                 style={{ background: "none" }}
                             >
@@ -103,7 +103,7 @@ export default function Chat() {
                                 className={`inline-block px-4 py-2 text-sm md:text-base rounded-xl max-w-[75%] break-words
                                     ${m.role === "user"
                                         ? "bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white rounded-br-none"
-                                        : "bg-[#1e1e1e] text-white rounded-bl-none"
+                                        : "bg-[#2a2a2a] text-white rounded-bl-none"
                                     }`}
                             >
                                 {m.content}
@@ -117,7 +117,7 @@ export default function Chat() {
             <div className="px-4 py-3 border-t bg-transparent border-transparent">
                 <div className="flex gap-3 items-center">
                     <input
-                        className="flex-1 px-4 py-2 rounded-full text-sm placeholder-gray-400 transition bg-[#1f1f1f] text-white backdrop-blur-md shadow-inner"
+                        className="flex-1 px-4 py-2 rounded-full text-sm placeholder-gray-400 transition bg-[#2b2b2b] text-white backdrop-blur-md shadow-inner"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
