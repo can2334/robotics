@@ -43,17 +43,47 @@ export default function Home() {
       <main className="flex-1 p-6">
 
         {/* Slider Bölümü */}
-        <section className="mb-12">
-          <div className="max-w-6xl mx-auto flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide">
-            {sliderData.map((slide) => (
-              <div key={slide.id} className="min-w-[300px] md:min-w-[500px] snap-start bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden shadow-md transition-colors duration-300">
-                <img src={slide.img} alt={slide.title} className="w-full h-48 object-cover" />
-                <div className="p-4">
-                  <h3 className="text-xl font-bold">{slide.title}</h3>
-                  <p className="text-gray-700 dark:text-gray-300">{slide.description}</p>
+        <section className="mb-12 relative">
+          <div className="max-w-6xl mx-auto relative">
+            {/* Sol Ok */}
+            <button
+              onClick={() => {
+                const container = document.getElementById("sliderContainer");
+                if (container) container.scrollBy({ left: -300, behavior: "smooth" });
+              }}
+              className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 dark:bg-gray-700 bg-opacity-70 dark:bg-opacity-70 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-gray-700 dark:text-gray-200 rounded-full w-10 h-10 z-10 transition-colors"
+            >
+              ‹
+            </button>
+
+            {/* Sağ Ok */}
+            <button
+              onClick={() => {
+                const container = document.getElementById("sliderContainer");
+                if (container) container.scrollBy({ left: 300, behavior: "smooth" });
+              }}
+              className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 dark:bg-gray-700 bg-opacity-70 dark:bg-opacity-70 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-gray-700 dark:text-gray-200 rounded-full w-10 h-10 z-10 transition-colors"
+            >
+              ›
+            </button>
+
+            <div
+              id="sliderContainer"
+              className="flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide"
+            >
+              {sliderData.map((slide) => (
+                <div
+                  key={slide.id}
+                  className="min-w-[300px] md:min-w-[500px] snap-start bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden shadow-md transition-colors duration-300"
+                >
+                  <img src={slide.img} alt={slide.title} className="w-full h-48 object-cover" />
+                  <div className="p-4">
+                    <h3 className="text-xl font-bold">{slide.title}</h3>
+                    <p className="text-gray-700 dark:text-gray-300">{slide.description}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 

@@ -38,7 +38,7 @@ export default function Footer({ theme }: { theme: "light" | "dark" }) {
 
                 <div className="text-center md:text-right text-sm">
                     <p>turkiyeroboticscommunity@gmail.com</p>
-                    <p>+90 534 321 47 65</p>
+                    <p>+90 555 555 55 55</p>
                 </div>
             </div>
 
