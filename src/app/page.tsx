@@ -8,15 +8,10 @@ const sliderData = [
   { id: 3, title: "VEX Robotics High Stakes", description: "Ankara'da düzenlenen yarışmaya hazır olun!", img: "https://educatrobotics.com/wp-content/uploads/2024/09/VRC_High_Stakes.png" },
 ];
 
-const events = [
-  { id: 1, title: "VEX Robotics Skills Challenge", date: "20 Ekim 2025", img: "https://nooby.tech/976-large_default/vex-robotics-competition-program-ages-14-18.jpg" },
-  { id: 2, title: "Kodlama Semineri", date: "25 Ekim 2025", img: "/event2.jpg" },
-  { id: 3, title: "VEX Takım Seçimi", date: "30 Ekim 2025", img: "/event3.jpg" },
-];
 
 const cards = [
   { title: "Yazılım", desc: "Web ve mobil uygulama geliştirme", img: "/images/yazilim.jpg" },
-  { title: "Robotics", desc: "VEX ve Arduino projeleri", img: "/images/robotics.jpg" },
+  { title: "Robotics", desc: "VEX ve Arduino projeleri", img: "https://recf.org/wp-content/uploads/2025/05/Push-Back-Banner.jpg" },
   { title: "Tasarım", desc: "UI/UX ve modern tasarım", img: "/images/tasarim.jpg" },
   { title: "Proje Yönetimi", desc: "Takım ve süreç yönetimi", img: "/images/proje.jpg" },
   { title: "Öğrenme", desc: "Yeni teknolojilerle sürekli gelişim", img: "/images/ogrenme.jpg" },
@@ -30,7 +25,7 @@ export default function Home() {
 
       <main className="flex-1 p-6">
 
-        {/* Slider */}
+        {/* Slider Bölümü */}
         <section className="mb-12">
           <div className="max-w-6xl mx-auto flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide">
             {sliderData.map((slide) => (
@@ -45,42 +40,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Etkinlikler */}
-        <section className="mb-12 max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-6">Etkinlikler</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {events.map((event) => (
-              <div key={event.id} className="bg-gray-100 rounded-lg shadow-md overflow-hidden">
-                <div className="w-full aspect-square flex justify-center items-center bg-gray-200">
-                  <img
-                    src={event.img}
-                    alt={event.title}
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-lg">{event.title}</h3>
-                  <p className="text-sm text-gray-600">{event.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
 
-        {/* Hakkımda / Kartlar */}
-        <section className="max-w-5xl mx-auto mb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
-          {cards.map((item, idx) => (
-            <Link key={idx} href="/about">
-              <div className="w-48 h-48 bg-blue-500 text-white rounded-full flex flex-col items-center justify-center text-center p-4 shadow-lg transform transition-all duration-300 hover:scale-105 hover:bg-blue-600 cursor-pointer">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-24 h-24 rounded-full mb-2 object-cover"
-                />
-                <h3 className="text-xl font-bold">{item.title}</h3>
-                <p className="text-sm">{item.desc}</p>
+        {/* Kartlar Bölümü */}
+        <section className="max-w-6xl mx-auto mb-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {cards.slice(0, 3).map((item, idx) => (
+            <div
+              key={idx}
+              className="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300"
+            >
+              <img
+                src={item.img}
+                alt={item.title}
+                className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition duration-300"
+              />
+              <div className="p-5">
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-200 line-clamp-2">{item.desc}</p>
               </div>
-            </Link>
+            </div>
           ))}
         </section>
 
