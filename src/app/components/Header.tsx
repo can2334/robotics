@@ -27,27 +27,28 @@ export default function Header({
                 ${theme === "light" ? "bg-white text-gray-900 border-gray-300" : "bg-gray-900 text-white border-gray-700"}`}
             >
                 {/* Logo / Başlık */}
-                <div className="flex items-center gap-4">
-                    <h1 className="text-2xl font-bold">Türkiye Robotics Community</h1>
-
-                    {/* Desktop tema ikonu */}
-                    <div className="hidden md:flex">
-                        <button
-                            onClick={toggleTheme}
-                            className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                        >
-                            {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-                        </button>
-                    </div>
-                </div>
+                <h1 className="text-2xl font-bold">Türkiye Robotics Community</h1>
 
                 {/* Desktop Menü */}
                 <nav className="hidden md:flex items-center gap-6">
+                    {/* Tema ikonu */}
+                    <button
+                        onClick={toggleTheme}
+                        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform duration-150 active:scale-95"
+                    >
+                        {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+                    </button>
+
                     {menuItems.map((item) => (
                         <a
                             key={item.href}
                             href={item.href}
-                            className="hover:text-indigo-500 transition"
+                            className="relative px-3 py-1 font-medium
+                                       text-gray-700 dark:text-gray-200
+                                       after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 
+                                       after:bg-indigo-500 after:transition-all after:duration-300
+                                       hover:after:w-full hover:text-indigo-600 dark:hover:text-indigo-400
+                                       transition-transform duration-150 active:scale-95"
                         >
                             {item.label}
                         </a>
@@ -58,11 +59,11 @@ export default function Header({
                 <div className="flex md:hidden items-center gap-2">
                     <button
                         onClick={toggleTheme}
-                        className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform duration-150 active:scale-95"
                     >
                         {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
                     </button>
-                    <button onClick={() => setSidebarOpen(true)}>
+                    <button onClick={() => setSidebarOpen(true)} className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform duration-150 active:scale-95">
                         <Menu size={24} />
                     </button>
                 </div>
@@ -94,20 +95,11 @@ export default function Header({
 
                     {/* Sidebar Menü */}
                     <nav className="mt-8 flex flex-col gap-4 text-gray-900 dark:text-white">
-                        {/* Tema ikonu */}
-                        <button
-                            onClick={toggleTheme}
-                            className="flex items-center gap-2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                        >
-                            {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-                            <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
-                        </button>
-
                         {menuItems.map((item) => (
                             <a
                                 key={item.href}
                                 href={item.href}
-                                className="hover:text-indigo-500 transition"
+                                className="px-3 py-2 rounded hover:bg-indigo-100 dark:hover:bg-indigo-700 transition-colors duration-300"
                                 onClick={() => setSidebarOpen(false)}
                             >
                                 {item.label}
