@@ -16,7 +16,8 @@ export default function ChatPage() {
                 <h1 className={`text-3xl font-bold mb-6 text-center ${theme === "light" ? "text-gray-900" : "text-white"}`}>
                     Robotics AI Chat
                 </h1>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+                {/* Buradaki beyaz arka planı kaldırdık ve Chat component’in kendi arka planına bıraktık */}
+                <div className={`rounded-xl shadow-md p-6 ${theme === "light" ? "bg-gray-100" : "bg-gray-900"}`}>
                     <Chat />
                 </div>
             </main>

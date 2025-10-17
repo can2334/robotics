@@ -70,11 +70,13 @@ export default function Chat() {
                 {messages.map((m, i) => (
                     <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                         {m.type === "code" ? (
-                            <div className={`relative w-full md:w-3/4 rounded-xl overflow-hidden
-                                ${m.role === "user"
-                                    ? "bg-[#056a56] text-white"
-                                    : "bg-[#1e1e1e] text-white"
-                                }`}
+                            <div
+                                className={`relative w-full md:w-3/4 rounded-xl overflow-hidden
+                                    ${m.role === "user"
+                                        ? "bg-[#056a56] text-white"
+                                        : "bg-[#1e1e1e] text-white"
+                                    }`}
+                                style={{ background: "none" }}
                             >
                                 <button
                                     onClick={() => copyToClipboard(m.content)}
@@ -90,7 +92,7 @@ export default function Chat() {
                                         margin: 0,
                                         borderRadius: "12px",
                                         padding: "10px",
-                                        backgroundColor: "transparent",
+                                        background: "transparent !important",
                                     }}
                                 >
                                     {m.content}
