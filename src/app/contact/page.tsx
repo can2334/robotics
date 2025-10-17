@@ -86,7 +86,7 @@ export default function ContactPage() {
 
                 <div className="mt-8 text-gray-700">
                     <p>E-posta: info@turkiyeroboticscommunity.com</p>
-                    <p>Telefon: +90 555 555 55 55</p>
+                    <p>Telefon: +90 555 </p>
                 </div>
             </div>
             <Footer />
