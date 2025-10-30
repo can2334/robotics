@@ -1,7 +1,7 @@
 {
-  "name": "robotics",
+  "name": "tr-robotics",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -35,5 +35,11 @@
   },
   "engines": {
     "node": "20.x"
+  },
+  "maintainers": [
+    "pampa <seninmailin@ornek.com>"
+  ],
+  "funding": {
+    "url": "https://github.com/sponsors/pampa"
   }
 }
