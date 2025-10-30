@@ -30,9 +30,6 @@ const cards = [
     title: "Yazılım",
     desc: "Web ve mobil uygulama geliştirme",
     img: "/images/yazilim.jpg",
-    code: `function helloWorld() {
-  console.log("Hello World!");
-}`,
   },
   {
     title: "Robotics",
@@ -139,13 +136,6 @@ export default function Home() {
               <div className="absolute bottom-4 left-4 right-4 text-center text-white">
                 <h3 className="text-xl font-bold">{card.title}</h3>
                 <p className="mt-1 text-sm">{card.desc}</p>
-
-                {/* Kod Bloğu */}
-                <div className="mt-3 bg-gray-100 dark:bg-gray-800 p-3 rounded-lg overflow-x-auto">
-                  <pre className="text-sm font-mono text-gray-800 dark:text-gray-100">
-                    {card.code}
-                  </pre>
-                </div>
               </div>
             </div>
           ))}

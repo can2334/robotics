@@ -5,7 +5,10 @@ import "./globals.css";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import { ThemeProvider } from "./components/ThemeContext";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,33 +21,36 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+}) {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  // Tarayıcıdan kaydedilmiş tema varsa uygula
+  // Tarayıcıdan kaydedilmiş temayı yükle
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    if (storedTheme) setTheme(storedTheme);
+    const stored = localStorage.getItem("theme") as "light" | "dark" | null;
+    if (stored) setTheme(stored);
   }, []);
 
-  // html class'ını güncelle
+  // Tema değişimini HTML'e uygula
   useEffect(() => {
     const html = document.documentElement;
-    if (theme === 'dark') html.classList.add('dark');
-    else html.classList.remove('dark');
-    localStorage.setItem('theme', theme);
+    html.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
-    <html>
-      <body>
+    <html lang="tr" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="flex flex-col min-h-screen">
         <ThemeProvider>
-          {/* Dark mode toggle */}
-          {children}
+          {/* Sayfa içeriği */}
+          <main className="flex-1">
+            {children}
+          </main>
+
+          {/* Analytics ve Speed Insights */}
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>
