@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { Button } from "../..//components/ui/button";
+import { Button } from "../../components/ui/button";
 
 const dersler = [
     {
@@ -45,6 +45,95 @@ const dersler = [
   </body>
 </html>`,
     },
+    {
+        id: 4,
+        title: "Tablolar",
+        content: `<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Örnek Tablo</h2>
+    <table border="1">
+      <tr>
+        <th>İsim</th>
+        <th>Yaş</th>
+      </tr>
+      <tr>
+        <td>Ali</td>
+        <td>25</td>
+      </tr>
+      <tr>
+        <td>Ayşe</td>
+        <td>30</td>
+      </tr>
+    </table>
+  </body>
+</html>`,
+    },
+    {
+        id: 5,
+        title: "Formlar",
+        content: `<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Giriş Formu</h2>
+    <form onsubmit="handleSubmit(event)">
+      Adınız: <input type="text" name="ad"><br><br>
+      Email: <input type="email" name="email"><br><br>
+      <input type="submit" value="Gönder">
+    </form>
+
+    <p id="sonuc" style="color:green; font-weight:bold; margin-top:10px;"></p>
+
+    <script>
+      function handleSubmit(e) {
+        e.preventDefault();
+        document.getElementById('sonuc').innerText = "Başarıyla Gönderildi ✅";
+      }
+    </script>
+  </body>
+</html>
+`,
+    },
+    {
+        id: 6,
+        title: "HTML5 Semantik Etiketler",
+        content: `<!DOCTYPE html>
+<html>
+  <body>
+    <header>
+      <h1>Başlık</h1>
+    </header>
+    <nav>
+      <a href="#">Anasayfa</a> | <a href="#">Hakkımızda</a>
+    </nav>
+    <section>
+      <h2>İçerik Bölümü</h2>
+      <p>HTML5 semantik etiketler ile düzenli sayfa yapısı oluşturulur.</p>
+    </section>
+    <footer>
+      <p>&copy; 2025 Tüm Hakları Saklıdır.</p>
+    </footer>
+  </body>
+</html>`,
+    },
+    {
+        id: 7,
+        title: "Multimedya (Video & Audio)",
+        content: `<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Video ve Ses Örneği</h2>
+    <video width="320" height="240" controls>
+      <source src="movie.mp4" type="video/mp4">
+      Tarayıcınız video etiketini desteklemiyor.
+    </video>
+    <audio controls>
+      <source src="audio.mp3" type="audio/mpeg">
+      Tarayıcınız audio etiketini desteklemiyor.
+    </audio>
+  </body>
+</html>`,
+    },
 ];
 
 export default function EgitimHTML() {
@@ -56,7 +145,6 @@ export default function EgitimHTML() {
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
     useEffect(() => {
-        // ilk yüklemede kod div içerisine içerik yerleştirme
         if (kodRef.current) kodRef.current.innerText = kod;
     }, [kod]);
 
