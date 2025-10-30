@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -19,7 +18,9 @@ const cards = [
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Tema ayarı
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
     if (storedTheme) setTheme(storedTheme);
@@ -34,75 +35,92 @@ export default function Home() {
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
+  // Slider otomatik kaydırma
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % sliderData.length);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className={`flex flex-col min-h-screen transition-colors duration-300
+    <div className={`flex flex-col min-h-screen transition-colors duration-500
       ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-900 text-white"}`}>
       <Header theme={theme} toggleTheme={toggleTheme} />
-      <title>TRC - Anasayfa </title>
 
+      <main className="flex-1 px-4 md:px-8 py-6 space-y-12">
 
-      <main className="flex-1 p-6">
+        {/* Slider */}
+        <section className="relative max-w-6xl mx-auto">
+          <div className="relative overflow-hidden rounded-xl shadow-lg h-64 md:h-96">
+            {sliderData.map((slide, idx) => (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 transition-opacity duration-700 ${idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                  }`}
+              >
+                <img
+                  src={slide.img}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white p-4 rounded-lg max-w-sm">
+                  <h3 className="text-2xl font-bold">{slide.title}</h3>
+                  <p className="mt-1">{slide.description}</p>
+                </div>
+              </div>
+            ))}
 
-        {/* Slider Bölümü */}
-        <section className="mb-12 relative">
-          <div className="max-w-6xl mx-auto relative">
-            {/* Sol Ok */}
+            {/* Dot Navigasyon */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+              {sliderData.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`w-3 h-3 rounded-full ${currentSlide === idx ? "bg-white" : "bg-gray-400"
+                    }`}
+                />
+              ))}
+            </div>
+
+            {/* Sol / Sağ Oklar */}
             <button
-              onClick={() => {
-                const container = document.getElementById("sliderContainer");
-                if (container) container.scrollBy({ left: -300, behavior: "smooth" });
-              }}
-              className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 dark:bg-gray-700 bg-opacity-70 dark:bg-opacity-70 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-gray-700 dark:text-gray-200 rounded-full w-10 h-10 z-10 transition-colors"
+              onClick={() =>
+                setCurrentSlide(
+                  (currentSlide - 1 + sliderData.length) % sliderData.length
+                )
+              }
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center z-20"
             >
               ‹
             </button>
-
-            {/* Sağ Ok */}
             <button
-              onClick={() => {
-                const container = document.getElementById("sliderContainer");
-                if (container) container.scrollBy({ left: 300, behavior: "smooth" });
-              }}
-              className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 dark:bg-gray-700 bg-opacity-70 dark:bg-opacity-70 hover:bg-opacity-90 dark:hover:bg-opacity-90 text-gray-700 dark:text-gray-200 rounded-full w-10 h-10 z-10 transition-colors"
+              onClick={() =>
+                setCurrentSlide((currentSlide + 1) % sliderData.length)
+              }
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center z-20"
             >
               ›
             </button>
-
-            <div
-              id="sliderContainer"
-              className="flex overflow-x-scroll gap-6 snap-x snap-mandatory scrollbar-hide"
-            >
-              {sliderData.map((slide) => (
-                <div
-                  key={slide.id}
-                  className="min-w-[300px] md:min-w-[500px] snap-start bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden shadow-md transition-colors duration-300"
-                >
-                  <img src={slide.img} alt={slide.title} className="w-full h-48 object-cover" />
-                  <div className="p-4">
-                    <h3 className="text-xl font-bold">{slide.title}</h3>
-                    <p className="text-gray-700 dark:text-gray-300">{slide.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
-        {/* Kartlar Bölümü */}
-        <section className="max-w-6xl mx-auto mb-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {cards.slice(0, 3).map((item, idx) => (
+        {/* Kartlar */}
+        <section className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {cards.map((card, idx) => (
             <div
               key={idx}
-              className="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300"
+              className="relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
             >
               <img
-                src={item.img}
-                alt={item.title}
-                className="w-full h-48 object-cover opacity-90 group-hover:opacity-100 transition duration-300"
+                src={card.img}
+                alt={card.title}
+                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              <div className="p-5">
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-200 dark:text-gray-100 line-clamp-2">{item.desc}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="text-xl font-bold">{card.title}</h3>
+                <p className="mt-1 text-sm">{card.desc}</p>
               </div>
             </div>
           ))}
