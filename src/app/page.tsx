@@ -38,6 +38,7 @@ export default function Home() {
     <div className={`flex flex-col min-h-screen transition-colors duration-300
       ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-900 text-white"}`}>
       <Header theme={theme} toggleTheme={toggleTheme} />
+      <title>TRC - Anasayfa </title>
 
 
       <main className="flex-1 p-6">

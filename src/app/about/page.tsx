@@ -24,7 +24,7 @@ const techLogos: Record<string, string> = {
     React: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     Php: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
     Python: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-    Sql: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sql/sql-original.svg",
+    Sql: "https://gimgs2.nohat.cc/thumb/f/350/microsoft-sql-server-mysql-database-logo-others--5015229175955456.jpg",
     MySQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
     C: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
     "C#": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
@@ -108,7 +108,6 @@ export default function About() {
     return (
         <div className={`${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"} flex flex-col min-h-screen transition-colors duration-300`}>
             <Head>
-                <title>Türkiye Robotics Community - Takım</title>
                 <meta
                     name="description"
                     content="Türkiye Robotics Community ekibi olarak teknolojiyi, mühendisliği ve yaratıcılığı birleştiriyoruz."
@@ -117,6 +116,7 @@ export default function About() {
             </Head>
 
             <Header theme={theme} toggleTheme={toggleTheme} />
+            <title>TRC - Hakkımızda</title>
 
             <main className="flex-1 max-w-6xl mx-auto p-8">
                 <h1 className="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-500">

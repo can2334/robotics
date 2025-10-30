@@ -1,5 +1,5 @@
 {
-  "name": "tr-robotics",
+  "name": "trc",
   "version": "0.1.0",
   "private": false,
   "scripts": {
@@ -37,9 +37,25 @@
     "node": "20.x"
   },
   "maintainers": [
-    "pampa <seninmailin@ornek.com>"
+    "Can Akbulut <cansalman332@gmail.com>"
   ],
   "funding": {
-    "url": "https://github.com/sponsors/pampa"
-  }
+    "url": "https://github.com/can2334"
+  },
+  "keywords": [
+    "TRC",
+    "robotics",
+    "ros2",
+    "robot",
+    "telemetry",
+    "video-streaming",
+    "remote-control",
+    "AI"
+  ],
+  "homepage": "https://turkiyeroboticscommunity.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/can2334/robotics.git"
+  },
+  "description": "Türkiye Robotics Community – P2P ROS2 robot controller CLI with ROS telemetry and video streaming."
 }

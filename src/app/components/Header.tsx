@@ -21,8 +21,10 @@ export default function Header({
 
     return (
         <>
+
             {/* Header */}
             <header
+
                 className={`w-full flex justify-between items-center px-6 py-4 border-b transition-colors duration-300
                 ${theme === "light" ? "bg-white text-gray-900 border-gray-300" : "bg-gray-900 text-white border-gray-700"}`}
             >
