@@ -16,6 +16,7 @@ export default function Header({
         { label: "Home", href: "/" },
         { label: "Hakkımızda", href: "/about" },
         { label: "İletişim", href: "/contact" },
+        { label: "Eğitim", href: "/egitim" },
         { label: "Chat’e Git", href: "/chat" },
     ];
 
