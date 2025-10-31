@@ -19,7 +19,7 @@ export default function LessonViewer({ lesson }: { lesson: Lesson }) {
     const [calisiyor, setCalisiyor] = useState(false);
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
-    // ▶️ Çalıştır butonu
+    // ▶️ Canlı çalıştır
     const calistir = () => {
         if (!iframeRef.current) return;
         const doc = iframeRef.current.contentDocument;
@@ -28,21 +28,14 @@ export default function LessonViewer({ lesson }: { lesson: Lesson }) {
         const extraCSS =
             theme === "dark"
                 ? `<style>
-            body { background-color: #111 !important; color: #eee !important; }
-            p, h1, h2, h3, h4, h5, h6, td, th, li, label, a, span {
-              color: #eee !important;
-            }
-            input, textarea, select, button {
-              background-color: #222 !important;
-              color: #eee !important;
-              border: 1px solid #444 !important;
-            }
+            body { background-color: #fff !important; }
           </style>`
                 : "";
 
+
         const finalHTML = kod.includes("</head>")
             ? kod.replace("</head>", `${extraCSS}</head>`)
-            : extraCSS + kod;
+            : `<head>${extraCSS}</head>${kod}`;
 
         doc.open();
         doc.write(finalHTML);
@@ -50,40 +43,46 @@ export default function LessonViewer({ lesson }: { lesson: Lesson }) {
         setCalisiyor(true);
     };
 
+    // ⏹ Durdur
     const durdur = () => {
         if (iframeRef.current) iframeRef.current.srcdoc = "";
         setCalisiyor(false);
     };
 
+    // 🔄 Sıfırla
     const sifirla = () => {
         setKod(lesson.content);
         durdur();
     };
 
+    // 📋 Kopyala
     const kopyala = async () => {
         await navigator.clipboard.writeText(kod);
         alert("Kod panoya kopyalandı ✅");
     };
 
+    // Ders veya tema değiştiğinde resetle
     useEffect(() => {
         setKod(lesson.content);
         durdur();
     }, [lesson]);
 
+    useEffect(() => {
+        if (calisiyor) calistir();
+    }, [theme]);
+
     return (
         <div className="space-y-6">
-            {/* 📘 Teorik Bilgi */}
+            {/* 📘 Teori */}
             <div
                 className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm prose dark:prose-invert max-w-none"
                 dangerouslySetInnerHTML={{ __html: lesson.theory }}
             />
 
-            {/* 💻 Kod Editörü — her zaman siyah & yeşil */}
+            {/* 💻 Kod Editörü */}
             <div
                 className="rounded-xl relative p-4 mb-4 bg-black text-green-400"
-                style={{
-                    border: "1px solid #333",
-                }}
+                style={{ border: "1px solid #333" }}
             >
                 <div
                     contentEditable
@@ -92,10 +91,7 @@ export default function LessonViewer({ lesson }: { lesson: Lesson }) {
                         setKod((e.target as HTMLDivElement).innerText)
                     }
                     className="font-mono whitespace-pre-wrap break-words overflow-auto min-h-[200px] outline-none p-2 rounded-lg"
-                    style={{
-                        backgroundColor: "#000",
-                        color: "#00ff66",
-                    }}
+                    style={{ backgroundColor: "#000", color: "#00ff66" }}
                 >
                     {kod}
                 </div>
@@ -104,11 +100,7 @@ export default function LessonViewer({ lesson }: { lesson: Lesson }) {
                     <Button onClick={calistir} disabled={calisiyor}>
                         Başlat
                     </Button>
-                    <Button
-                        onClick={durdur}
-                        variant="secondary"
-                        disabled={!calisiyor}
-                    >
+                    <Button onClick={durdur} variant="secondary" disabled={!calisiyor}>
                         Durdur
                     </Button>
                     <Button onClick={sifirla} variant="destructive">
@@ -123,8 +115,8 @@ export default function LessonViewer({ lesson }: { lesson: Lesson }) {
             {/* 🌐 Canlı Önizleme */}
             <div
                 className={`rounded-lg shadow-md overflow-hidden border p-1 ${theme === "light"
-                        ? "bg-white border-gray-300"
-                        : "bg-gray-900 border-gray-700"
+                    ? "bg-white border-gray-300"
+                    : "bg-gray-900 border-gray-700"
                     }`}
             >
                 <iframe
