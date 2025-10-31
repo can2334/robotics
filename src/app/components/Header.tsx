@@ -35,8 +35,8 @@ export default function Header({
             {/* HEADER */}
             <header
                 className={`w-full flex justify-between items-center px-6 py-4 border-b sticky top-0 z-50 backdrop-blur-md transition-all duration-300 ${theme === "light"
-                        ? "bg-white/80 text-gray-900 border-gray-200"
-                        : "bg-gray-900/80 text-white border-gray-800"
+                    ? "bg-white/80 text-gray-900 border-gray-200"
+                    : "bg-gray-900/80 text-white border-gray-800"
                     }`}
             >
                 <h1 className="text-xl md:text-2xl font-bold tracking-tight select-none">
@@ -126,8 +126,8 @@ export default function Header({
             {/* MOBILE SIDEBAR */}
             <div
                 className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${sidebarOpen
-                        ? "opacity-100 pointer-events-auto"
-                        : "opacity-0 pointer-events-none"
+                    ? "opacity-100 pointer-events-auto"
+                    : "opacity-0 pointer-events-none"
                     }`}
             >
                 <div

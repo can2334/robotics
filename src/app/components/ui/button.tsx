@@ -1,54 +1,44 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import React from "react";
+import clsx from "clsx";
 
-const buttonVariants = cva(
-    "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 " +
-    "disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
-    {
-        variants: {
-            variant: {
-                default: "bg-blue-600 text-white hover:bg-blue-700",
-                secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300",
-                destructive: "bg-red-600 text-white hover:bg-red-700",
-                outline: "border border-gray-300 hover:bg-gray-100",
-                ghost: "hover:bg-gray-100",
-                link: "underline-offset-4 hover:underline text-blue-600",
-            },
-            size: {
-                default: "h-10 px-4 py-2",
-                sm: "h-9 rounded-md px-3",
-                lg: "h-11 rounded-md px-8",
-                icon: "h-10 w-10",
-            },
-        },
-        defaultVariants: {
-            variant: "default",
-            size: "default",
-        },
-    }
-);
-
-export interface ButtonProps
-    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-    asChild?: boolean;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: "default" | "outline" | "secondary" | "destructive";
+    size?: "sm" | "md" | "lg";
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, asChild = false, ...props }, ref) => {
-        const Comp = asChild ? Slot : "button";
-        return (
-            <Comp
-                className={cn(buttonVariants({ variant, size, className }))}
-                ref={ref}
-                {...props}
-            />
-        );
-    }
-);
-Button.displayName = "Button";
+export const Button: React.FC<ButtonProps> = ({
+    variant = "default",
+    size = "md",
+    className,
+    children,
+    ...props
+}) => {
+    const base =
+        "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
 
-export { Button, buttonVariants };
+    const variants = {
+        default:
+            "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500",
+        outline:
+            "border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800",
+        secondary:
+            "bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-400",
+        destructive:
+            "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+    };
+
+    const sizes = {
+        sm: "text-sm px-3 py-1.5",
+        md: "text-base px-4 py-2",
+        lg: "text-lg px-5 py-3",
+    };
+
+    return (
+        <button
+            className={clsx(base, variants[variant], sizes[size], className)}
+            {...props}
+        >
+            {children}
+        </button>
+    );
+};

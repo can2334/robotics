@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-    darkMode: "class", // <-- bu yoksa dark mode çalışmaz
+    darkMode: "class",
     theme: {
         extend: {
             colors: {
@@ -10,7 +10,9 @@ const config: Config = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require("@tailwindcss/typography"), // 🪄 Medium tarzı yazılar için
+    ],
 };
 
 export default config;
