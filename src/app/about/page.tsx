@@ -1,4 +1,3 @@
-
 "use client";
 
 import Header from "../components/Header";
@@ -116,7 +115,7 @@ export default function About() {
                 <meta name="keywords" content="robotik, yazılım, tasarım, mühendislik, takım üyeleri" />
             </Head>
 
-            <Header theme={theme} toggleTheme={toggleTheme} />
+            <Header />
             <title>TRC - Hakkımızda</title>
 
             <main className="flex-1 max-w-6xl mx-auto p-8">

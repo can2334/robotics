@@ -1,9 +1,23 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { useTheme } from "./components/ThemeContext";
 
+interface SliderItem {
+  img: string;
+  title: string;
+  description: string;
+}
+
+interface CardItem {
+  img: string;
+  title: string;
+  desc: string;
+}
+
+// Örnek slider verisi, sen gerçek verilerle değiştir
 const sliderData = [
   {
     id: 1,
@@ -44,41 +58,20 @@ const cards = [
 ];
 
 export default function Home() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme } = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Tema ayarı
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as
-      | "light"
-      | "dark"
-      | null;
-    if (storedTheme) setTheme(storedTheme);
-  }, []);
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + sliderData.length) % sliderData.length);
+  };
 
-  useEffect(() => {
-    const html = document.documentElement;
-    if (theme === "dark") html.classList.add("dark");
-    else html.classList.remove("dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
-
-  // Slider otomatik kaydırma
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sliderData.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % sliderData.length);
+  };
 
   return (
-    <div
-      className={`flex flex-col min-h-screen transition-colors duration-500 ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-900 text-white"
-        }`}
-    >
-      <Header theme={theme} toggleTheme={toggleTheme} />
+    <div className={`${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"} flex flex-col min-h-screen transition-colors duration-300`}>
+      <Header />
 
       <main className="flex-1 px-4 md:px-8 py-6 space-y-12">
         {/* Slider */}

@@ -10,7 +10,7 @@ export default function ChatPage() {
 
     return (
         <div className={`flex flex-col min-h-screen transition-colors duration-300 ${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"}`}>
-            <Header theme={theme} toggleTheme={toggleTheme} />
+            <Header />
             <title>TRC - RoboticsAi</title>
 
             <main className="flex-1 p-8 w-full max-w-4xl mx-auto">

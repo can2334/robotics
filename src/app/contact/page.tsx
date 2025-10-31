@@ -37,7 +37,7 @@ export default function ContactPage() {
 
     return (
         <div className={`min-h-screen flex flex-col transition-colors duration-300 ${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-gray-100"}`}>
-            <Header theme={theme} toggleTheme={toggleTheme} />
+            <Header />
             <title>TRC - İletişim</title>
 
             <main className="flex-1 w-full max-w-3xl mx-auto p-6">

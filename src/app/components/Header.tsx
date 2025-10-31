@@ -1,16 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
+import { useTheme } from "../components/ThemeContext";
 
-export default function Header({
-    theme,
-    toggleTheme,
-}: {
-    theme: "light" | "dark";
-    toggleTheme: () => void;
-}) {
+export default function Header() {
+    const { theme, toggleTheme } = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [egitimOpen, setEgitimOpen] = useState(false);
 
@@ -34,7 +30,7 @@ export default function Header({
         <>
             {/* HEADER */}
             <header
-                className={`w-full flex justify-between items-center px-6 py-4 border-b sticky top-0 z-50 backdrop-blur-md transition-all duration-300 ${theme === "light"
+                className={`w-full flex justify-between items-center px-6 py-4 border-b sticky top-0 z-50 backdrop-blur-md transition-colors duration-500 ${theme === "light"
                     ? "bg-white/80 text-gray-900 border-gray-200"
                     : "bg-gray-900/80 text-white border-gray-800"
                     }`}
@@ -50,7 +46,7 @@ export default function Header({
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className="relative font-medium group text-gray-700 dark:text-gray-200"
+                                className="relative font-medium group text-gray-700 dark:text-gray-200 transition-colors duration-300"
                             >
                                 {item.label}
                                 <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-300 group-hover:w-full" />
@@ -62,7 +58,7 @@ export default function Header({
                                 onMouseEnter={() => setEgitimOpen(true)}
                                 onMouseLeave={() => setEgitimOpen(false)}
                             >
-                                <button className="flex items-center gap-1 font-medium group text-gray-700 dark:text-gray-200 relative">
+                                <button className="flex items-center gap-1 font-medium group text-gray-700 dark:text-gray-200 relative transition-colors duration-300">
                                     {item.label}
                                     <ChevronDown
                                         size={16}
@@ -78,7 +74,7 @@ export default function Header({
                                             <Link
                                                 key={ders.href}
                                                 href={ders.href}
-                                                className="block px-5 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors"
+                                                className="block px-5 py-2 text-sm hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors duration-300"
                                             >
                                                 {ders.label}
                                             </Link>
@@ -125,19 +121,17 @@ export default function Header({
 
             {/* MOBILE SIDEBAR */}
             <div
-                className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${sidebarOpen
-                    ? "opacity-100 pointer-events-auto"
-                    : "opacity-0 pointer-events-none"
+                className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                     }`}
             >
                 <div
-                    className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500"
                     onClick={() => setSidebarOpen(false)}
                 ></div>
 
                 <div
-                    className={`relative bg-white dark:bg-gray-900 w-72 h-full shadow-2xl p-6 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "translate-x-full"
-                        } rounded-l-2xl`}
+                    className={`relative w-72 h-full shadow-2xl p-6 transform transition-transform duration-500 rounded-l-2xl ${theme === "light" ? "bg-white text-gray-900" : "bg-gray-900 text-white"
+                        } ${sidebarOpen ? "translate-x-0" : "translate-x-full"}`}
                 >
                     <button
                         className="absolute top-4 right-4 text-gray-700 dark:text-gray-200"
@@ -146,13 +140,13 @@ export default function Header({
                         <X size={26} />
                     </button>
 
-                    <nav className="mt-10 flex flex-col gap-4 text-gray-900 dark:text-white">
+                    <nav className="mt-10 flex flex-col gap-4">
                         {menuItems.map((item) =>
                             item.label !== "Eğitim" ? (
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="px-3 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors font-medium"
+                                    className="px-3 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors duration-300 font-medium"
                                     onClick={() => setSidebarOpen(false)}
                                 >
                                     {item.label}
@@ -166,7 +160,7 @@ export default function Header({
                                         <Link
                                             key={ders.href}
                                             href={ders.href}
-                                            className="px-5 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors text-sm"
+                                            className="px-5 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors duration-300 text-sm"
                                             onClick={() => setSidebarOpen(false)}
                                         >
                                             {ders.label}
