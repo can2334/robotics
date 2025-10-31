@@ -230,7 +230,7 @@ export default function About() {
                 )}
             </main>
 
-            <Footer theme={theme} />
+            <Footer />
         </div>
     );
 }

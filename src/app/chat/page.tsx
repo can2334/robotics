@@ -23,7 +23,7 @@ export default function ChatPage() {
                 </div>
             </main>
 
-            <Footer theme={theme} />
+            <Footer />
         </div>
     );
 }

@@ -20,7 +20,7 @@ export default function HtmlEgitimPage() {
         : "bg-gray-900 text-white"
         }`}
     >
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header />
 
       <div className="flex flex-1 flex-col md:flex-row">
         {/* 🖥️ Sol Menü (sadece masaüstünde görünür) */}
@@ -90,7 +90,7 @@ export default function HtmlEgitimPage() {
         </main>
       </div>
 
-      <Footer theme={theme} />
+      <Footer />
     </div>
   );
 }

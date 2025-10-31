@@ -1,9 +1,13 @@
-"use client";
+'use client';
 
-export default function Footer({ theme }: { theme: "light" | "dark" }) {
+import { useTheme } from '../components/ThemeContext';
+
+export default function Footer() {
+    const { theme } = useTheme();
+
     return (
         <footer
-            className={`w-full py-6 mt-6 transition-colors duration-300 ${theme === "light" ? "bg-gray-100 text-gray-700" : "bg-gray-800 text-gray-200"
+            className={`w-full py-6 mt-6 border-t-2 transition-colors duration-300 ${theme === "light" ? "bg-gray-100 text-gray-700 border-gray-300" : "bg-gray-800 text-gray-200 border-gray-700"
                 }`}
         >
             <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -14,10 +18,10 @@ export default function Footer({ theme }: { theme: "light" | "dark" }) {
 
                 <div className="flex gap-4 items-center">
                     <a
-                        href="https://www.instagram.com/turkiyeroboticscommunity?igsh=MmQ4Z2s3Z2pjaGVv"
-                        className={`flex items-center transition ${theme === "light" ? "hover:text-gray-900" : "hover:text-white"}`}
+                        href="https://www.instagram.com/turkiyeroboticscommunity"
+                        className={`flex items-center transition ${theme === "light" ? "hover:text-gray-900" : "hover:text-white"
+                            }`}
                     >
-                        {/* Instagram SVG ikonu */}
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -31,14 +35,16 @@ export default function Footer({ theme }: { theme: "light" | "dark" }) {
                     </a>
                 </div>
 
-
                 <div className="text-center md:text-right text-sm">
                     <p>turkiyeroboticscommunity@gmail.com</p>
                     <p>+90 555 555 55 55</p>
                 </div>
             </div>
 
-            <div className={`mt-4 text-center text-xs transition-colors duration-300 ${theme === "light" ? "text-gray-500" : "text-gray-400"}`}>
+            <div
+                className={`mt-4 text-center text-xs transition-colors duration-300 ${theme === "light" ? "text-gray-500" : "text-gray-400"
+                    }`}
+            >
                 &copy; 2025 Türkiye Robotics Community. Tüm hakları saklıdır.
             </div>
         </footer>

@@ -6,7 +6,7 @@ import { useTheme } from "../components/ThemeContext";
 import { useState } from "react";
 
 export default function ContactPage() {
-    const { theme, toggleTheme } = useTheme(); // ThemeContext'ten alıyoruz
+    const { theme } = useTheme(); // toggleTheme'i kaldırdık, Footer ve Header kendi başına çalışacak
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [submitted, setSubmitted] = useState(false);
 
@@ -38,7 +38,6 @@ export default function ContactPage() {
     return (
         <div className={`min-h-screen flex flex-col transition-colors duration-300 ${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-gray-100"}`}>
             <Header />
-            <title>TRC - İletişim</title>
 
             <main className="flex-1 w-full max-w-3xl mx-auto p-6">
                 <h1 className={`text-3xl font-bold mb-8 text-center ${theme === "light" ? "text-gray-900" : "text-white"}`}>İletişim</h1>
@@ -51,33 +50,45 @@ export default function ContactPage() {
                     )}
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                        <label htmlFor="name" className="sr-only">Ad Soyad</label>
                         <input
                             type="text"
+                            id="name"
                             name="name"
                             placeholder="Ad Soyad"
+                            autoComplete="name"
                             value={formData.name}
                             onChange={handleChange}
                             required
                             className={`border rounded px-4 py-2 focus:outline-none focus:ring-2 ${theme === "light" ? "border-gray-300 focus:ring-blue-400 text-gray-900" : "border-gray-600 focus:ring-blue-500 text-gray-100 bg-gray-700"}`}
                         />
+
+                        <label htmlFor="email" className="sr-only">E-posta</label>
                         <input
                             type="email"
+                            id="email"
                             name="email"
                             placeholder="E-posta"
+                            autoComplete="email"
                             value={formData.email}
                             onChange={handleChange}
                             required
                             className={`border rounded px-4 py-2 focus:outline-none focus:ring-2 ${theme === "light" ? "border-gray-300 focus:ring-blue-400 text-gray-900" : "border-gray-600 focus:ring-blue-500 text-gray-100 bg-gray-700"}`}
                         />
+
+                        <label htmlFor="message" className="sr-only">Mesajınız</label>
                         <textarea
+                            id="message"
                             name="message"
                             placeholder="Mesajınız"
+                            autoComplete="off"
                             value={formData.message}
                             onChange={handleChange}
                             required
                             rows={5}
                             className={`border rounded px-4 py-2 focus:outline-none focus:ring-2 resize-none ${theme === "light" ? "border-gray-300 focus:ring-blue-400 text-gray-900" : "border-gray-600 focus:ring-blue-500 text-gray-100 bg-gray-700"}`}
                         />
+
                         <button
                             type="submit"
                             className={`bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded transition-colors`}
@@ -88,12 +99,12 @@ export default function ContactPage() {
 
                     <div className={`mt-8 ${theme === "light" ? "text-gray-700" : "text-gray-300"}`}>
                         <p>E-posta: info@turkiyeroboticscommunity.com</p>
-                        <p>Telefon: +90 555</p>
+                        <p>Telefon: +90 555 555 55 55</p>
                     </div>
                 </div>
             </main>
 
-            <Footer theme={theme} />
+            <Footer />
         </div>
     );
 }
