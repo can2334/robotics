@@ -72,7 +72,7 @@ export default function Home() {
   return (
     <div className={`${theme === "light" ? "bg-gray-50 text-gray-900" : "bg-gray-900 text-white"} flex flex-col min-h-screen transition-colors duration-300`}>
       <Header />
-
+      <title>TRC - Anasayfa</title>
       <main className="flex-1 px-4 md:px-8 py-6 space-y-12">
         {/* Slider */}
         <section className="relative max-w-6xl mx-auto">

@@ -9,6 +9,7 @@ export default function Header() {
     const { theme, toggleTheme } = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [egitimOpen, setEgitimOpen] = useState(false);
+    const [mobileEgitimOpen, setMobileEgitimOpen] = useState(false);
 
     const menuItems = [
         { label: "Home", href: "/" },
@@ -19,11 +20,11 @@ export default function Header() {
     ];
 
     const dersler = [
-        { label: "HTML", href: "/egitim/html" },
-        { label: "CSS", href: "/egitim/css" },
-        { label: "JavaScript", href: "/egitim/javascript" },
-        { label: "SQL", href: "/egitim/sql" },
-        { label: "Python", href: "/egitim/python" },
+        { label: "HTML", href: "/html" },
+        { label: "CSS", href: "/css" },
+        { label: "JavaScript", href: "/javascript" },
+        { label: "SQL", href: "/sql" },
+        { label: "Python", href: "/python" },
     ];
 
     return (
@@ -121,7 +122,9 @@ export default function Header() {
 
             {/* MOBILE SIDEBAR */}
             <div
-                className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${sidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                className={`fixed inset-0 z-50 flex transition-opacity duration-300 ${sidebarOpen
+                    ? "opacity-100 pointer-events-auto"
+                    : "opacity-0 pointer-events-none"
                     }`}
             >
                 <div
@@ -140,7 +143,7 @@ export default function Header() {
                         <X size={26} />
                     </button>
 
-                    <nav className="mt-10 flex flex-col gap-4">
+                    <nav className="mt-10 flex flex-col gap-2">
                         {menuItems.map((item) =>
                             item.label !== "Eğitim" ? (
                                 <Link
@@ -152,20 +155,34 @@ export default function Header() {
                                     {item.label}
                                 </Link>
                             ) : (
-                                <div key={item.label} className="flex flex-col gap-2">
-                                    <span className="px-3 py-2 font-semibold text-indigo-600 dark:text-indigo-400">
+                                <div key={item.label} className="flex flex-col gap-1">
+                                    <button
+                                        onClick={() => setMobileEgitimOpen(!mobileEgitimOpen)}
+                                        className="px-3 py-2 flex justify-between items-center font-semibold text-indigo-600 dark:text-indigo-400 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors duration-300"
+                                    >
                                         Eğitim
-                                    </span>
-                                    {dersler.map((ders) => (
-                                        <Link
-                                            key={ders.href}
-                                            href={ders.href}
-                                            className="px-5 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors duration-300 text-sm"
-                                            onClick={() => setSidebarOpen(false)}
-                                        >
-                                            {ders.label}
-                                        </Link>
-                                    ))}
+                                        <ChevronDown
+                                            size={16}
+                                            className={`transition-transform duration-300 ${mobileEgitimOpen ? "rotate-180" : ""
+                                                }`}
+                                        />
+                                    </button>
+
+                                    <div
+                                        className={`overflow-hidden transition-all duration-300 ${mobileEgitimOpen ? "max-h-96 mt-1" : "max-h-0"
+                                            }`}
+                                    >
+                                        {dersler.map((ders) => (
+                                            <Link
+                                                key={ders.href}
+                                                href={ders.href}
+                                                className="block px-5 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors duration-300 text-sm"
+                                                onClick={() => setSidebarOpen(false)}
+                                            >
+                                                {ders.label}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             )
                         )}

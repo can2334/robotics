@@ -1,5 +1,7 @@
-import React from "react";
-import clsx from "clsx";
+"use client";
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "default" | "outline" | "secondary" | "destructive";
@@ -14,7 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     const base =
-        "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
+        "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98]";
 
     const variants = {
         default:
@@ -35,7 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
 
     return (
         <button
-            className={clsx(base, variants[variant], sizes[size], className)}
+            className={cn(base, variants[variant], sizes[size], className)}
             {...props}
         >
             {children}

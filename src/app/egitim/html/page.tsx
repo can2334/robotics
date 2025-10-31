@@ -21,6 +21,7 @@ export default function HtmlEgitimPage() {
         }`}
     >
       <Header />
+      <title>TRC - Html Eğitimleri</title>
 
       <div className="flex flex-1 flex-col md:flex-row">
         {/* 🖥️ Sol Menü (sadece masaüstünde görünür) */}
