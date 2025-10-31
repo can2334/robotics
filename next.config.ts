@@ -37,6 +37,7 @@ const nextConfig: NextConfig = {
       { source: "/html", destination: "/egitim/html" },
       { source: "/css", destination: "/egitim/css" },
       { source: "/javascript", destination: "/egitim/javascript" },
+      { source: "/sql", destination: "/egitim/sql" },
     ];
   },
 };

@@ -12,7 +12,7 @@ export default function Header() {
     const [mobileEgitimOpen, setMobileEgitimOpen] = useState(false);
 
     const menuItems = [
-        { label: "Home", href: "/" },
+        { label: "Anasayfa", href: "/" },
         { label: "Hakkımızda", href: "/about" },
         { label: "İletişim", href: "/contact" },
         { label: "Eğitim", href: "/egitim" },
