@@ -33,45 +33,59 @@ export default function SqlEgitimPage() {
         { id: 14, name: "Kaan", age: 24, grade: 76 },
         { id: 15, name: "Lara", age: 20, grade: 89 },
     ];
+
+    const changeLesson = (id: number) => {
+        const ders = sqlLessons.find(l => l.id === id);
+        if (ders) {
+            setAktifDers(ders);
+            setKod(ders.content);
+            setCalisiyor(false);
+            if (outputRef.current) outputRef.current.innerHTML = "";
+        }
+    };
+
+    const sifirla = () => {
+        setKod(aktifDers.content);
+        setCalisiyor(false);
+        if (outputRef.current) outputRef.current.innerHTML = "";
+    };
+
+    const kopyala = () => {
+        navigator.clipboard.writeText(kod);
+        alert("Kod panoya kopyalandı ✅");
+    };
+
     // SQL simülasyonu
     const calistir = () => {
-        let rows: any[] = [];
+        let sonuc: any[] = [];
 
-        if (kod.includes("SELECT * FROM Students LIMIT")) {
+        if (kod.includes("LIMIT")) {
             const limitMatch = kod.match(/LIMIT (\d+)/i);
             const limit = limitMatch ? parseInt(limitMatch[1]) : students.length;
-            rows = students.slice(0, limit);
-        } else if (kod.includes("*") && !kod.includes("WHERE") && !kod.includes("ORDER BY")) {
-            rows = students;
+            sonuc = students.slice(0, limit);
         } else if (kod.includes("WHERE grade > 85")) {
-            rows = students.filter(s => s.grade > 85);
+            sonuc = students.filter(o => o.grade > 85);
         } else if (kod.includes("ORDER BY grade DESC")) {
-            rows = [...students].sort((a, b) => b.grade - a.grade);
-        } else if (kod.includes("SELECT name, grade FROM Students WHERE grade BETWEEN")) {
-            const match = kod.match(/BETWEEN (\d+) AND (\d+)/i);
-            if (match) {
-                const min = parseInt(match[1]);
-                const max = parseInt(match[2]);
-                rows = students.filter(s => s.grade >= min && s.grade <= max);
-            }
-        } else if (kod.includes("SELECT name FROM Students WHERE name LIKE")) {
-            const match = kod.match(/LIKE '(.+)'/i);
-            if (match) {
-                const prefix = match[1].replace("%", "");
-                rows = students.filter(s => s.name.startsWith(prefix));
-            }
+            sonuc = [...students].sort((a, b) => b.grade - a.grade);
+        } else if (kod.includes("DISTINCT")) {
+            const seen: any = {};
+            sonuc = students.filter(o => {
+                const key = o.grade;
+                if (seen[key]) return false;
+                seen[key] = true;
+                return true;
+            });
         } else {
-            rows = [];
+            sonuc = students;
         }
 
-        // HTML tablo oluştur
         if (outputRef.current) {
-            if (rows.length === 0) {
+            if (sonuc.length === 0) {
                 outputRef.current.innerText = "Sonuç yok";
                 return;
             }
 
-            const headers = Object.keys(rows[0]);
+            const headers = Object.keys(sonuc[0]);
             const table = document.createElement("table");
             table.style.width = "100%";
             table.style.borderCollapse = "collapse";
@@ -91,7 +105,7 @@ export default function SqlEgitimPage() {
             table.appendChild(thead);
 
             const tbody = document.createElement("tbody");
-            rows.forEach(r => {
+            sonuc.forEach(r => {
                 const tr = document.createElement("tr");
                 headers.forEach(h => {
                     const td = document.createElement("td");
@@ -103,32 +117,12 @@ export default function SqlEgitimPage() {
                 tbody.appendChild(tr);
             });
             table.appendChild(tbody);
+
             outputRef.current.innerHTML = "";
             outputRef.current.appendChild(table);
         }
+
         setCalisiyor(true);
-    };
-
-
-    const sifirla = () => {
-        setKod(aktifDers.content);
-        if (outputRef.current) outputRef.current.innerHTML = "";
-        setCalisiyor(false);
-    };
-
-    const kopyala = async () => {
-        await navigator.clipboard.writeText(kod);
-        alert("Kod panoya kopyalandı ✅");
-    };
-
-    const changeLesson = (dersId: number) => {
-        const ders = sqlLessons.find(l => l.id === dersId);
-        if (ders) {
-            setAktifDers(ders);
-            setKod(ders.content);
-            if (outputRef.current) outputRef.current.innerHTML = "";
-            setCalisiyor(false);
-        }
     };
 
     return (
@@ -177,8 +171,7 @@ export default function SqlEgitimPage() {
                                             changeLesson(l.id);
                                             setMenuAcik(false);
                                         }}
-                                        className={`p-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 ${aktifDers.id === l.id ? "bg-gray-200 dark:bg-gray-700 font-semibold" : ""
-                                            }`}
+                                        className={`p-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 ${aktifDers.id === l.id ? "bg-gray-200 dark:bg-gray-700 font-semibold" : ""}`}
                                     >
                                         {l.title}
                                     </div>
@@ -220,7 +213,6 @@ export default function SqlEgitimPage() {
                     <div className={`rounded-lg shadow-md overflow-hidden border p-2 ${theme === "light" ? "bg-white border-gray-300" : "bg-gray-900 border-gray-700"}`}>
                         <div ref={outputRef} className="overflow-auto min-h-[100px] p-2"></div>
                     </div>
-
                 </main>
             </div>
 
